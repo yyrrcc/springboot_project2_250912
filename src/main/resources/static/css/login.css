@@ -1,0 +1,35 @@
+@charset "UTF-8";
+.login-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.signup-link {
+    margin-top: 15px;
+}
+.signup-link a {
+    color: rgb(255,161,92);
+    text-decoration: none;
+}
+.signup-link a:hover {
+    text-decoration: underline;
+}

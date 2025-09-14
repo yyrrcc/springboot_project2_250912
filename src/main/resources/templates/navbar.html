@@ -1,0 +1,21 @@
+<!-- templates/navbar.html -->
+<nav class="navbar" th:fragment="navbar" xmlns:th="http://www.thymeleaf.org">
+    <div class="nav-logo">
+        <a th:href="@{/}">🐾🐶 PET LOVER</a>
+    </div>
+    
+    <ul class="nav-links">
+        <li><a th:href="@{/}">홈</a></li>
+        
+        <li sec:authorize="isAnonymous()"><a th:href="@{/user/login}">로그인</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/user/mypage}">마이페이지</a></li>
+        
+        <li><a th:href="@{/board}">게시판</a></li>
+        <li><a th:href="@{/reservation}">예약하기</a></li>
+        <li><a th:href="@{/map}">오시는길</a></li>
+    </ul>
+    
+    <form th:action="@{/user/logout}" sec:authorize="isAuthenticated()" method="post">
+       <button type="submit">로그아웃</button>
+	</form>
+</nav>

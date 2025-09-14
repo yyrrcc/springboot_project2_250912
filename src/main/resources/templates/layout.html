@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title th:text="${title} ?: 'Pet Community'">Pet Community</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+
+    <!-- child templates가 필요하면 여기에 추가 링크/스크립트를 넣어줄 수 있음 -->
+    <th:block layout:fragment="link"></th:block>
+</head>
+<body>
+    <!-- 공통 네비게이션: navbar.html의 fragment 'navbar'를 여기에 삽입 -->
+    <header th:replace="~{navbar :: navbar}"></header>
+
+    <!-- 메인 컨텐츠: child 템플릿의 layout:fragment="content"가 들어옴 -->
+    <main class="container" layout:fragment="content">
+        <!-- 기본 fallback 내용(선택사항) -->
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Pet Community. All rights reserved.</p>
+        <p> TEL : 02-1234-5678 | 서울특별시 마포구 코딩동 90번지</p>
+    </footer>
+    
+    
+<!-- 자바스크립트 Start -->
+<th:block layout:fragment="script"></th:block>
+<!-- 자바스크립트 End -->
+    
+</body>
+</html>

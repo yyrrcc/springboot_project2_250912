@@ -1,0 +1,130 @@
+@charset "UTF-8";
+/* 공통 레이아웃 */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f9fc;
+  color: #333;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* 버튼 */
+.btn {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-right: 5px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #4cafef;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #3790d9;
+}
+
+.btn-secondary {
+  background-color: #eee;
+  color: #333;
+}
+.btn-secondary:hover {
+  background-color: #ddd;
+}
+
+.btn-tertiary {
+  background-color: #f2f2f2;
+  color: #555;
+}
+.btn-tertiary:hover {
+  background-color: #e0e0e0;
+}
+
+/* 검색 박스 */
+.search-box {
+  margin-bottom: 15px;
+}
+.search-box input {
+  padding: 8px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 테이블 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.board-table th, .board-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+.board-table th {
+  background-color: #f0f4f8;
+}
+.board-table td a {
+  color: #333;
+  text-decoration: none;
+}
+.board-table td a:hover {
+  text-decoration: underline;
+}
+
+/* 페이징 */
+.pagination {
+  text-align: center;
+  margin-top: 15px;
+}
+.pagination .page {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #eee;
+  color: #333;
+  text-decoration: none;
+}
+.pagination .page:hover {
+  background-color: #ddd;
+}
+.pagination .active {
+  background-color: #4cafef;
+  color: #fff;
+}
+
+/* 게시글 작성/수정 form */
+.board-form {
+  display: flex;
+  flex-direction: column;
+}
+.board-form label {
+  margin: 10px 0 5px;
+}
+.board-form input[type="text"],
+.board-form input[type="file"],
+.board-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.form-buttons {
+  margin-top: 15px;
+}

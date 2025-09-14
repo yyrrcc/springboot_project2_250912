@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <!-- index 전용 CSS -->
+    <th:block layout:fragment="link">
+        <link rel="stylesheet" th:href="@{/css/index.css}">
+    </th:block>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="welcome">
+		<h1 sec:authorize="!isAuthenticated()">
+			🐾 반려동물을 키우는 사람들을 위한 커뮤니티에 오신 걸 환영합니다 🐾</h1>
+		<h1 sec:authorize="isAuthenticated()"
+		 th:text="${#authentication.name} + '님 환영합니다!'"></h1>
+
+        <p>강아지, 고양이와 함께하는 즐거운 이야기를 나누고 소통하는 공간입니다.</p>
+    </div>
+
+    <div class="image-grid">
+        <div class="image-card">
+            <img src="/images/dog1.jpg" alt="강아지1">
+        </div>
+        <div class="image-card">
+            <img src="/images/cat1.jpg" alt="고양이1">
+        </div>
+        <div class="image-card">
+            <img src="/images/dog2.jpg" alt="강아지2">
+        </div>
+        <div class="image-card">
+            <img src="/images/cat2.jpg" alt="고양이2">
+        </div>
+    </div>
+</section>
+</body>
+</html>

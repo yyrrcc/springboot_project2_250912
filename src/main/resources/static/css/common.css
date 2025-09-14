@@ -1,0 +1,46 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: #fffaf5;
+    color: #333;
+}
+
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: rgb(255,161,92);
+    margin-bottom: 15px;
+}
+
+button, .btn {
+    background-color: rgb(255,161,92);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: rgb(255,140,60);
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #f7e9df;
+    margin-top: 30px;
+}
+
+/* 오류 메시지 */
+.form-error {
+	margin-bottom: 20px;
+	text-align: center;
+	color: red;
+	font-weight: bold;
+}

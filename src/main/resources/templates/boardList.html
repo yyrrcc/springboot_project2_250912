@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>자유게시판</title>
+  <link rel="stylesheet" href="/resources/css/board.css">
+</head>
+<body>
+  <!-- layout + navbar include -->
+  <div class="layout">
+    <header>
+      <%@ include file="../common/navbar.html" %>
+    </header>
+
+    <main class="container">
+      <h2 class="page-title">자유게시판</h2>
+
+      <!-- 검색 영역 -->
+      <div class="search-box">
+        <input type="text" placeholder="검색어를 입력하세요">
+        <button class="btn btn-primary">검색</button>
+        <button class="btn btn-secondary">글쓰기</button>
+      </div>
+
+      <!-- 게시판 테이블 -->
+      <table class="board-table">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>제목</th>
+            <th>글쓴이</th>
+            <th>조회수</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><a href="#">첫 번째 게시글입니다</a></td>
+            <td>관리자</td>
+            <td>10</td>
+            <td>2025-09-14</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><a href="#">두 번째 게시글입니다</a></td>
+            <td>사용자1</td>
+            <td>5</td>
+            <td>2025-09-13</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 페이징 -->
+      <div class="pagination">
+        <a href="#" class="page">1</a>
+        <a href="#" class="page active">2</a>
+        <a href="#" class="page">3</a>
+        <a href="#" class="page">다음</a>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

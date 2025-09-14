@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 수정</title>
+  <link rel="stylesheet" href="/resources/css/board.css">
+</head>
+<body>
+  <div class="layout">
+    <header>
+      <%@ include file="../common/navbar.html" %>
+    </header>
+
+    <main class="container">
+      <h2 class="page-title">게시글 수정</h2>
+
+      <form class="board-form">
+        <label>제목</label>
+        <input type="text" name="title" value="기존 제목">
+
+        <label>글쓴이</label>
+        <input type="text" name="writer" value="기존 작성자">
+
+        <label>내용</label>
+        <textarea name="content" rows="10">기존 내용</textarea>
+
+        <label>파일첨부</label>
+        <input type="file" name="upload">
+
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">수정 완료</button>
+          <button type="button" class="btn btn-tertiary" onclick="location.href='boardList.html'">목록</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

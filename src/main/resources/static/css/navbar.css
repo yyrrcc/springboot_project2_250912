@@ -1,0 +1,31 @@
+@charset "UTF-8";
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255,161,92);
+    padding: 10px 20px;
+}
+
+.nav-logo a {
+    font-size: 1.5em;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.nav-links li a:hover {
+    text-decoration: underline;
+}
