@@ -99,6 +99,7 @@ button,
 
 .comment-form .form-group {
     margin-bottom: 12px;
+    width: 95%;
 }
 .comment-form label {
     display: block;

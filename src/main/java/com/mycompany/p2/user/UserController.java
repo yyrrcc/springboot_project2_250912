@@ -1,5 +1,7 @@
 package com.mycompany.p2.user;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -58,5 +60,17 @@ public class UserController {
 		return "login";
 	}
 
+	// 마이페이지
+	@GetMapping(value = "/mypage")
+	public String mypage(Model model, Principal principal) {
+		UserEntity userEntity = userService.findByUserid(principal.getName());
+		model.addAttribute("user", userEntity);
+		return "mypage";
+	}
+	// 마이페이지
+	@PostMapping(value = "/mypage/update")
+	public String mypageUpdate() {
+		return "redirect:/user/mypage";
+	}
 	
 }
