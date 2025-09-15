@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.mycompany.p2.user.UserController;
 import com.mycompany.p2.user.UserEntity;
 import com.mycompany.p2.user.UserService;
@@ -59,14 +61,42 @@ public class BoardController {
 	}
 	
 	// 글 상세보기
-	@GetMapping(value = "/view")
-	public String view() {
+	@GetMapping(value = "/view/{id}")
+	public String view(@PathVariable("id") Long id, Model model) {
+		BoardEntity board = boardService.view(id);
+		model.addAttribute("board", board);
 		return "boardDetail";
 	}
 	
-	@GetMapping(value = "/edit")
-	public String edit() {
+	// 글 수정하기 폼
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = "/edit/{id}")
+	public String edit(@PathVariable("id") Long id, Model model) {
+		BoardEntity board = boardService.view(id);
+		model.addAttribute("board", board);
 		return "boardEdit";
+	}
+	
+	// 글 수정한 후
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/edit/{id}")
+	public String edit(@PathVariable("id") Long id, @Valid BoardDto boardDto, BindingResult result, Principal principal, Model model) {
+		if (result.hasErrors()) {
+			//model.addAttribute("board", boardService.view(id));
+			model.addAttribute("board", boardDto);
+			return "boardEdit";
+		}		
+		BoardEntity board = boardService.view(id);
+		boardService.edit(board, boardDto.getTitle(), boardDto.getContent());
+		return String.format("redirect:/board/view/%s", id);
+	}
+	
+	// 글 삭제
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/delete/{id}")
+	public String delete(@PathVariable("id") Long id) {
+		boardService.delete(id);
+		return "redirect:/board/list";
 	}
 
 }

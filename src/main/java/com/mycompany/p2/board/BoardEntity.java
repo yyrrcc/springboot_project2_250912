@@ -43,6 +43,8 @@ public class BoardEntity {
 	
 	private LocalDateTime regdate; // 작성일
 	
+	private LocalDateTime editdate; // 수정일
+	
 	// 게시판:유저(N:1) 관계
 	@ManyToOne
 	private UserEntity writer;

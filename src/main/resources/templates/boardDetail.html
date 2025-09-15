@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/board-detail.css}">
+</head>
+
+<section layout:fragment="content" class="detail-container">
+    <h2>게시글 상세보기</h2>
+
+    <!-- 게시글 정보 -->
+    <div class="detail-box">
+        <h3 th:text="${board.title}">제목</h3>
+        <p class="meta">
+            <span>작성자: <span th:text="${board.writer.username}">작성자</span></span> | 
+            <span>조회수: <span th:text="${board.hit}">0</span></span> | 
+            <span th:if="${board.editdate != null}" th:text="'수정일: ' + ${#temporals.format(board.editdate, 'yyyy-MM-dd HH:mm')}" style="font-style: italic;"><span>수정일</span></span>
+            <span th:if="${board.editdate == null}" th:text="'작성일: ' + ${#temporals.format(board.regdate, 'yyyy-MM-dd HH:mm')}"><span>작성일</span></span>
+        </p>
+        <div class="content" th:text="${board.content}">
+            게시글 내용
+        </div>
+    </div>
+
+    <!-- 버튼 영역 -->
+    <div class="board-actions">
+        <a th:href="@{/board/list}" class="btn-secondary">목록</a>
+        <a th:href="@{|/board/edit/${id}|}" class="btn-primary">수정</a>
+        <form th:action="@{|/board/delete/${id}|}" method="post" style="display:inline;">
+            <button type="submit" class="btn-danger">삭제</button>
+        </form>
+    </div>
+
+    <!-- 댓글 영역 -->
+    <div class="comment-section">
+        <h3>댓글</h3>
+
+        <!-- 댓글 작성 -->
+        <form th:action="@{/comment/add}" method="post" class="comment-form">
+            <input type="hidden" name="boardId" th:value="${board.id}" />
+            <div class="form-group">
+                <label for="writer">작성자</label>
+                <input type="text" id="writer" name="writer" required />
+            </div>
+            <div class="form-group">
+                <label for="content">댓글 내용</label>
+                <textarea id="content" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">등록</button>
+        </form>
+
+        <!-- 댓글 목록 -->
+        <div class="comment-list">
+            <p th:if="${#lists.isEmpty(comments)}">아직 댓글이 없습니다.</p>
+            <p th:if="${!#lists.isEmpty(comments)}" th:text="'총 ' + ${comments.size()} + '개의 답변이 있습니다.'"></p>
+            
+            <ul>
+                <li th:each="comment : ${comments}">
+                    <div class="comment-item">
+                        <p class="comment-meta">
+                            <span th:text="${comment.writer}">댓글 작성자</span> | 
+                            <span th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}">2025-09-14</span>
+                        </p>
+                        <p class="comment-content" th:text="${comment.content}">댓글 내용</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+</html>

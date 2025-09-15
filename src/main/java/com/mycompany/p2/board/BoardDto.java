@@ -34,6 +34,7 @@ public class BoardDto {
 	
 	private UserEntity writer;
 	
+	private LocalDateTime editdate; // 수정일
 	
 	// 엔티티 변환 메서드
 	public BoardEntity toEntity() {

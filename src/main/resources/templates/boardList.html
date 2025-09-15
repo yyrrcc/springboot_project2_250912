@@ -33,7 +33,7 @@
             <tr th:each="b : ${boardLists}">
                 <td th:text="${b.id}">번호</td>
                 <td>
-                    <a th:href="@{'/board/view/' + ${b.id}}" th:text="${b.title}">제목</a>
+                    <a th:href="@{|/board/view/${b.id}|}" th:text="${b.title}">제목</a>
                 </td>
                 <td th:text="${b.writer.username}">작성자</td>
                 <td th:text="${b.hit}">0</td>
