@@ -34,7 +34,16 @@
                 <td th:text="${b.id}">번호</td>
                 <td>
                     <a th:href="@{|/board/view/${b.id}|}" th:text="${b.title}">제목</a>
+					<span class="comment-number"
+                        th:if="${#lists.size(b.commentList) > 0}" 
+                        th:text="'(' + ${#lists.size(b.commentList)} + ')'">
+                    </span>
                 </td>
+                
+                <!-- 
+<p th:if="${#lists.isEmpty(comments)}">아직 댓글이 없습니다.</p>
+<p th:if="${!#lists.isEmpty(comments)}" th:text="'총 ' + ${comments.size()} + '개의 답변이 있습니다.'"></p> 
+                 -->
                 <td th:text="${b.writer.username}">작성자</td>
                 <td th:text="${b.hit}">0</td>
                 <td th:text="${#temporals.format(b.regdate, 'yyyy-MM-dd hh:mm')}">작성일</td>

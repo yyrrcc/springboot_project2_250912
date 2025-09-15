@@ -61,8 +61,8 @@
         
 
         <!-- 댓글 작성 (권한 부여해야 함) -->
-        <form th:action="@{/comment/add}" method="post" class="comment-form">
-            <input type="hidden" name="id" th:value="${board}" />
+        <form th:action="@{|/comment/add/${board.id}|}" method="post" class="comment-form">
+            <input type="hidden" name="boardId" th:value="${board.id}" />
             <div class="form-group">
                 <label for="writer">작성자</label>
                 <input type="text" th:value="${user.username}" readonly />

@@ -10,6 +10,5 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long>{
 	
 	// 게시판 글 번호로 댓글 목록 불러오기
 	public List<CommentEntity> findByBoardId(Long id);
-	
 
 }

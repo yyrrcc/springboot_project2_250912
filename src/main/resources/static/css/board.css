@@ -105,6 +105,12 @@ button,
     text-decoration: underline;
 }
 
+.comment-number {
+	font-size: 14px;
+	margin-left: 3px;
+	color: #cd9d6b;
+}
+
 /* 폼 입력 */
 .form-group {
     margin-bottom: 15px;

@@ -6,7 +6,6 @@ import com.mycompany.p2.board.BoardEntity;
 import com.mycompany.p2.user.UserEntity;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,19 +29,5 @@ public class CommentDto {
 	
 	// 답변:유저(N:1)
 	private UserEntity user;
-	
-	
-	// 엔티티 변환 메서드
-	public CommentEntity toEntity() {
-		CommentEntity commentEntity = new CommentEntity();
-		commentEntity.setId(id);
-		commentEntity.setContent(content);
-		commentEntity.setRegdate(LocalDateTime.now());
-		commentEntity.setBoard(board);
-		commentEntity.setUser(user);
-		return commentEntity;
-	}
-	
-	
 	
 }
