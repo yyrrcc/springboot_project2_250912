@@ -39,5 +39,7 @@ public class UserService {
 			throw new DataNotFoundException("해당 유저를 찾을 수 없습니다");
 		}
 	}
+	
+	
 
 }
