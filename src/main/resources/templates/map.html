@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/map.css}">
+</head>
+
+<section layout:fragment="content" class="map-container">
+    <h2>오시는 길</h2>
+
+    <!-- 안내문 -->
+    <div class="directions">
+        <h4>찾아오시는 방법</h4>
+        <ul>
+            <li>🚶‍♂️ 도보: 지하철 ○○역 2번 출구에서 직진 후 도보 5분</li>
+            <li>🚇 지하철: ○○역 (2호선, 3호선) 하차 후 도보 5분</li>
+            <li>🚌 버스: ○○정류장에서 하차 (간선 123, 456번 / 지선 789번)</li>
+            <li>🚗 자가용: ○○주차장 이용 가능 (30분 무료)</li>
+        </ul>
+    </div>    
+    
+    <!-- 지도 자리 -->
+    <div class="map-box">
+        <div id="map" style="width: 700px; height: 400px;"></div>
+    </div>
+</section>
+
+<!-- Kakao 지도 API -->
+<div layout:fragment="script">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72f2c91b6fdfa51322882cc132e82e6b&libraries=services"></script>
+<script>
+    var container = document.getElementById('map');
+    var options = {
+        center: new kakao.maps.LatLng(37.556485736141845, 126.94518938389395),
+        level: 3
+    };
+    var map = new kakao.maps.Map(container, options);
+	
+	//주소-좌표 변환 객체 생성 (app키에 &libraries=services 추가)
+    var geocoder = new kakao.maps.services.Geocoder();
+    var address = "서울특별시 마포구 신촌로";
+
+    geocoder.addressSearch(address, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            map.setCenter(coords);
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="padding:5px;">' + address + '</div>'
+            });
+            infowindow.open(map, marker);
+        } else {
+            alert("주소 검색 실패: " + status);
+        }
+    });
+</script>
+</div>
+</html>
