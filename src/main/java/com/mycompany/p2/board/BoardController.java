@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mycompany.p2.user.UserController;
+import com.mycompany.p2.comment.CommentEntity;
+import com.mycompany.p2.comment.CommentService;
 import com.mycompany.p2.user.UserEntity;
 import com.mycompany.p2.user.UserService;
 
@@ -27,7 +28,14 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CommentService commentService;
 
+	// ******** 로그인한 유저의 아이디를 통해서 해당 유저의 엔티티를 가져오기
+	public UserEntity getLoginUserEntity(Principal principal) {
+		UserEntity userEntity = userService.findByUserid(principal.getName());
+		return userEntity;
+	}
 	
 	// 글 목록
 	@GetMapping(value = "/list")
@@ -60,11 +68,15 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	// 글 상세보기
+	// 글 상세보기 (댓글 추가)
 	@GetMapping(value = "/view/{id}")
-	public String view(@PathVariable("id") Long id, Model model) {
+	public String view(@PathVariable("id") Long id, Model model, Principal principal) {
 		BoardEntity board = boardService.view(id);
+		List<CommentEntity> comments = commentService.getComment(id);
+		UserEntity user = getLoginUserEntity(principal); // 메서드 만들어서 사용함
 		model.addAttribute("board", board);
+		model.addAttribute("comments", comments);
+		model.addAttribute("user", user);
 		return "boardDetail";
 	}
 	

@@ -33,24 +33,13 @@
         </form>
     </div>
 
+
+
+
     <!-- 댓글 영역 -->
     <div class="comment-section">
         <h3>댓글</h3>
-
-        <!-- 댓글 작성 -->
-        <form th:action="@{/comment/add}" method="post" class="comment-form">
-            <input type="hidden" name="boardId" th:value="${board.id}" />
-            <div class="form-group">
-                <label for="writer">작성자</label>
-                <input type="text" id="writer" name="writer" required />
-            </div>
-            <div class="form-group">
-                <label for="content">댓글 내용</label>
-                <textarea id="content" name="content" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn-primary">등록</button>
-        </form>
-
+        
         <!-- 댓글 목록 -->
         <div class="comment-list">
             <p th:if="${#lists.isEmpty(comments)}">아직 댓글이 없습니다.</p>
@@ -60,14 +49,32 @@
                 <li th:each="comment : ${comments}">
                     <div class="comment-item">
                         <p class="comment-meta">
-                            <span th:text="${comment.writer}">댓글 작성자</span> | 
-                            <span th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}">2025-09-14</span>
+                            <span th:text="${comment.user.username}">댓글 작성자</span> | 
+                            <span th:text="${#temporals.format(comment.regdate, 'yyyy-MM-dd HH:mm')}">댓글 작성일</span>
                         </p>
                         <p class="comment-content" th:text="${comment.content}">댓글 내용</p>
                     </div>
                 </li>
             </ul>
         </div>
+        
+        
+
+        <!-- 댓글 작성 (권한 부여해야 함) -->
+        <form th:action="@{/comment/add}" method="post" class="comment-form">
+            <input type="hidden" name="id" th:value="${board}" />
+            <div class="form-group">
+                <label for="writer">작성자</label>
+                <input type="text" th:value="${user.username}" readonly />
+                <!-- <input type="text" th:value="${#authentication.name}" readonly /> -->
+            </div>
+            <div class="form-group">
+                <label for="content">댓글 내용</label>
+                <textarea id="content" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">등록</button>
+        </form>
+
     </div>
 </section>
 </html>
