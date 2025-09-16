@@ -4,6 +4,8 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @Controller
@@ -67,10 +71,24 @@ public class UserController {
 		model.addAttribute("user", userEntity);
 		return "mypage";
 	}
-	// 마이페이지
+	
+	// 마이페이지 수정
 	@PostMapping(value = "/mypage/update")
 	public String mypageUpdate() {
 		return "redirect:/user/mypage";
+	}
+	
+	
+	// 회원탈퇴
+	@PostMapping(value = "/mypage/delete")
+	public String delete(Principal principal, HttpServletRequest request, HttpServletResponse response) {
+		userService.deleteByUserid(principal.getName());
+		// 세션 무효화 및 SecurityContext 초기화
+	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+	    logoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+	    // 안전하게 SecurityContext 비우기
+		SecurityContextHolder.clearContext();
+		return "redirect:/";
 	}
 	
 }

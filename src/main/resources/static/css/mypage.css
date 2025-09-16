@@ -130,6 +130,33 @@ button,
     background: #b8aa95;
 }
 
+
+/* 회원탈퇴 버튼 */
+.btn-danger {
+    background-color: #dc3545; /* 빨간색 */
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.btn-danger:hover {
+    background-color: #b02a37;
+}
+
+/* 회원탈퇴 폼 */
+.delete-form {
+    margin-top: 20px;
+    text-align: right; /* 버튼을 오른쪽 정렬 */
+}
+
+
+
 /* 반응형 (간단) */
 @media (max-width: 800px) {
     .mypage-container { width: 92%; }

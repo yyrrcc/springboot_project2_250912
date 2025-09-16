@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
 	
@@ -38,6 +40,12 @@ public class UserService {
 		} else {
 			throw new DataNotFoundException("해당 유저를 찾을 수 없습니다");
 		}
+	}
+	
+	// 회원 탈퇴
+	@Transactional
+	public void deleteByUserid(String userid) {
+		userRepository.deleteByUserid(userid);
 	}
 	
 	
