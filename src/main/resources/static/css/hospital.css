@@ -1,0 +1,132 @@
+@charset "UTF-8";
+/* hospital.css — 기존 스타일과 통일 */
+
+.hospital-container {
+    width: 70%;
+    margin: 30px auto;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #333;
+}
+
+.hospital-container h2 {
+    text-align: center;
+    margin-bottom: 12px;
+    color: #4a3f35; /* 브라운 톤 */
+}
+
+.hospital-container .desc {
+    text-align: center;
+    margin-bottom: 22px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.hospital-form {
+    background: #fffaf3;
+    border: 1px solid #e0d7c8;
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 폼 그룹 */
+.form-group {
+    margin-bottom: 16px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #4a3f35;
+    font-size: 0.95rem;
+}
+
+.hospital-form input[type="text"],
+.hospital-form input[type="date"],
+.hospital-form input[type="time"],
+.hospital-form select,
+.hospital-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1c7b7;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.95rem;
+    transition: 0.18s;
+    box-sizing: border-box;
+}
+
+.hospital-form input:focus,
+.hospital-form select:focus,
+.hospital-form textarea:focus {
+    border-color: #a98e72;
+    outline: none;
+    box-shadow: 0 0 6px rgba(169,142,114,0.25);
+}
+
+/* 버튼 영역 */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.btn-primary {
+    background: #a98e72;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.18s;
+}
+.btn-primary:hover {
+    background: #8b725c;
+}
+
+.btn-secondary {
+    background: #d1c7b7;
+    color: #333;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.18s;
+}
+.btn-secondary:hover {
+    background: #b8aa95;
+}
+
+/* 예약확인 버튼 */
+.reservation-check {
+    margin: 30px 0 30px 0;
+    text-align: right;
+}
+
+.btn-outline {
+    border: 2px solid #a98e72;
+    color: #a98e72;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.18s;
+}
+
+.btn-outline:hover {
+    background: #a98e72;
+    color: #fff;
+}
+
+
+/* 반응형 */
+@media (max-width: 800px) {
+    .hospital-container { width: 92%; }
+    .form-actions { flex-direction: column-reverse; gap: 10px; align-items: stretch; }
+    .form-actions .btn-primary, .form-actions .btn-secondary { width: 100%; }
+}
