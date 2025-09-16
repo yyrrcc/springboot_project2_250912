@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.p2.comment.CommentEntity;
 import com.mycompany.p2.comment.CommentService;
@@ -38,10 +41,21 @@ public class BoardController {
 	}
 	
 	// 글 목록
+//	@GetMapping(value = "/list")
+//	public String list(Model model) {
+//		List<BoardEntity> boardLists = boardService.getBoardLists();
+//		model.addAttribute("boardLists", boardLists);
+//		return "boardList";
+//	}
+	
+	// 글 목록 + (페이징 구현 예정)
 	@GetMapping(value = "/list")
-	public String list(Model model) {
-		List<BoardEntity> boardLists = boardService.getList();
-		model.addAttribute("boardLists", boardLists);
+	//@PageableDefault(page = 1) : page는 기본적으로 1페이지를 보여준다
+	public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "kw", defaultValue = "") String kw) {
+		Page<BoardEntity> paging = boardService.getBoardLists(page, kw);
+		model.addAttribute("paging", paging);
+		model.addAttribute("kw", kw); // 검색어
 		return "boardList";
 	}
 	
@@ -64,7 +78,7 @@ public class BoardController {
 		}
 		UserEntity userEntity = userService.findByUserid(principal.getName());
 		boardDto.setWriter(userEntity);
-		boardService.write(boardDto);
+		boardService.create(boardDto);
 		return "redirect:/board/list";
 	}
 	

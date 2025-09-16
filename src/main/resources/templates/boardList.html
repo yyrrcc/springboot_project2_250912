@@ -11,12 +11,12 @@
 <body>
     <div class="container" layout:fragment="content">
         <h2>자유게시판</h2>
-
+        
         <!-- 검색 영역 -->
-        <div class="board-search">
-            <input type="text" placeholder="검색어를 입력하세요">
-            <button class="btn-primary">검색</button>
-        </div>
+        <form action="#" method="get" class="board-search">
+			<input type="text" name="kw" placeholder="검색어를 입력하세요" th:value="${kw}" />
+			<button type="submit" class="btn-primary">검색</button>
+		</form>
 
         <!-- 게시글 목록 -->
         <table class="board-table">
@@ -30,20 +30,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="b : ${boardLists}">
-                <td th:text="${b.id}">번호</td>
+            <tr th:each="b, loop : ${paging}">
+                <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}">번호</td>
                 <td>
                     <a th:href="@{|/board/view/${b.id}|}" th:text="${b.title}">제목</a>
 					<span class="comment-number"
                         th:if="${#lists.size(b.commentList) > 0}" 
                         th:text="'(' + ${#lists.size(b.commentList)} + ')'">
-                    </span>
+                    댓글수</span>
                 </td>
-                
-                <!-- 
-<p th:if="${#lists.isEmpty(comments)}">아직 댓글이 없습니다.</p>
-<p th:if="${!#lists.isEmpty(comments)}" th:text="'총 ' + ${comments.size()} + '개의 답변이 있습니다.'"></p> 
-                 -->
                 <td th:text="${b.writer.username}">작성자</td>
                 <td th:text="${b.hit}">0</td>
                 <td th:text="${#temporals.format(b.regdate, 'yyyy-MM-dd hh:mm')}">작성일</td>
@@ -51,21 +46,60 @@
             </tbody>
         </table>
 
-        <!-- 버튼 영역 -->
+        <!-- 글쓰기 버튼 영역 -->
         <div class="board-actions">
             <a th:href="@{/board/write}" sec:authorize="isAuthenticated()" class="btn-primary">글쓰기</a>
         </div>
-
-        <!-- 페이징 -->
-        <div class="pagination">
-        	<a href="#" class="page">처음으로</a>
-        	<a href="#" class="page">이전</a>
-            <a href="#" class="page">1</a>
-            <a href="#" class="page active">2</a>
-            <a href="#" class="page">3</a>
-            <a href="#" class="page">다음</a>
-            <a href="#" class="page">끝으로</a>
-        </div>
+        
+	    <!-- 페이징처리 시작 -->
+	    <div th:if="${!paging.isEmpty()}">
+	        <ul class="pagination">
+	        	<!-- 처음으로 버튼 -->
+				<li class="page-item" th:classappend="${paging.first} ? 'disabled'">
+					<a class="page-link" th:href="@{|?page=0|}"><span>처음</span></a>
+				</li>
+	        	<!-- 이전 버튼 -->
+	            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+	                <a class="page-link"
+	                    th:href="@{|?page=${paging.number-1}|}">
+	                    <span>이전</span>
+	                </a>
+	            </li>
+	            <!-- 페이지 번호 -->
+	            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+	            	th:if="${page > paging.number-5 and page < paging.number+5}"
+	                th:classappend="${page == paging.number} ? 'active'" 
+	                class="page-item">
+	                <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}|}"></a>
+	            </li>
+	            <!-- 다음 버튼 -->
+	            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+	                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+	                    <span>다음</span>
+	                </a>
+	            </li>
+	            <!-- 끝으로 버튼 -->
+				<li class="page-item" th:classappend="${paging.last} ? 'disabled'">
+					<a class="page-link" th:href="@{|?page=${paging.totalPages - 1}|}">끝</a>
+				</li>
+	        </ul>
+	    </div>
+	    <!-- 페이징처리 끝 -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </div>
 </body>
 </html>

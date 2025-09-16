@@ -146,26 +146,57 @@ button,
     margin-top: 15px;
 }
 
-/* 페이징 */
+/* Pagination — 권장 네이밍 (pagination / page-item / page-link) */
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    gap: 6px;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
 }
 
-.pagination .page {
-    padding: 8px 12px;
+.page-item {
+    display: inline-block;
+}
+
+.page-link {
+    display: block;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 1px solid #e0d7c8;
     border-radius: 6px;
-    background: #f6f1e9;
     color: #4a3f35;
     text-decoration: none;
-    transition: 0.2s;
+    background-color: #f6f1e9;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.06s ease;
 }
-.pagination .page:hover {
-    background: #d1c7b7;
+
+.page-link:hover {
+    background-color: #d1c7b7;
+    color: #4a3f35;
+    transform: translateY(-1px);
 }
-.pagination .active {
-    background: #a98e72;
-    color: #fff;
+
+.page-link:focus {
+    outline: 3px solid rgba(169,142,114,0.18);
+    outline-offset: 2px;
+}
+
+/* 현재 페이지 (active) */
+.page-item.active .page-link {
+    background-color: rgb(255,161,92); /* primary */
+    color: #ffffff;
+    border-color: rgb(255,161,92);
+    font-weight: 700;
+}
+
+/* 이전/다음 비활성 상태 */
+.page-item.disabled .page-link {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+    background-color: #faf7f3;
+    color: #b6a89a;
+    border-color: #eee6dc;
 }
