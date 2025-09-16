@@ -83,9 +83,13 @@ public class BoardController {
 	// 글 수정하기 폼
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/edit/{id}")
-	public String edit(@PathVariable("id") Long id, Model model) {
-		BoardEntity board = boardService.view(id);
-		model.addAttribute("board", board);
+	// 엔티티가 아닌 valid(dto)를 불러올 것
+	public String edit(@PathVariable("id") Long id, BoardDto boardDto) {
+		BoardEntity boardEntity = boardService.view(id);
+		boardDto.setId(boardEntity.getId());
+		boardDto.setWriter(boardEntity.getWriter());
+		boardDto.setTitle(boardEntity.getTitle());
+		boardDto.setContent(boardEntity.getContent());
 		return "boardEdit";
 	}
 	
