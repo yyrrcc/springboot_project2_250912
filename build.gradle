@@ -34,11 +34,18 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+	//runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	//오라클 클라우드 DB 연결 설정
+	implementation "com.oracle.database.jdbc:ojdbc11:23.5.0.24.07"
+	// Wallet 지원용
+	implementation "com.oracle.database.security:oraclepki:23.5.0.24.07"
+	//implementation "com.oracle.database.security:osdt_core"
+	//implementation "com.oracle.database.security:osdt_cert"
 }
 
 tasks.named('test') {
