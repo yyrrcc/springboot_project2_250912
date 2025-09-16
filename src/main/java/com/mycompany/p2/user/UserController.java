@@ -4,6 +4,8 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +26,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-//	private UserSignupValid userSignupValid;
 	
 	// 회원가입 폼
 	@GetMapping(value = "/signup")
@@ -65,16 +67,45 @@ public class UserController {
 	}
 
 	// 마이페이지
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/mypage")
-	public String mypage(Model model, Principal principal) {
+	// 엔티티가 아닌 dto(valid)를 이용할 것! 엔티티로 일단 정보 가져온 후 dto(valid) 이용
+	public String mypage(UserSignupValid userSignupValid, Model model, Principal principal) {
 		UserEntity userEntity = userService.findByUserid(principal.getName());
-		model.addAttribute("user", userEntity);
+		if (!userEntity.getUserid().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+		}
+		userSignupValid.setUserid(userEntity.getUserid());
+		userSignupValid.setUsername(userEntity.getUsername());
+		userSignupValid.setPet(userEntity.getPet());
+		userSignupValid.setEmail(userEntity.getEmail());
 		return "mypage";
 	}
 	
 	// 마이페이지 수정
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/mypage/update")
-	public String mypageUpdate() {
+	public String mypageUpdate(@Valid UserSignupValid userSignupValid, BindingResult result, Model model, Principal principal) {
+		if (!userSignupValid.getPassword1().equals(userSignupValid.getPassword2())) {
+			result.rejectValue("password2", "pwIncorrect", "비밀번호 확인이 일치하지 않습니다.");
+		}
+		if (result.hasErrors()) {
+			model.addAttribute("userSignupValid", userSignupValid);
+			return "mypage";
+		}
+		try {
+			userService.update(principal.getName(), userSignupValid);
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			result.reject("updateError", "이미 사용중인 이메일입니다.");
+			model.addAttribute("userSignupValid", userSignupValid);
+			return "mypage";
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.reject("updateError", "회원 정보 수정 실패입니다.");
+			model.addAttribute("userSignupValid", userSignupValid);
+			return "mypage";
+		}
 		return "redirect:/user/mypage";
 	}
 	

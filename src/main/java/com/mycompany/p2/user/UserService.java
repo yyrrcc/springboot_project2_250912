@@ -31,12 +31,29 @@ public class UserService {
 		userRepository.save(userEntity);
 	}
 	
-	// userid로 정보 조회
+	// userid로 정보 조회 (엔티티 가져옴)
 	public UserEntity findByUserid(String userid) {
 		Optional<UserEntity> optional = userRepository.findByUserid(userid);
 		if (optional.isPresent()) {
 			UserEntity userEntity = optional.get();
 			return userEntity;
+		} else {
+			throw new DataNotFoundException("해당 유저를 찾을 수 없습니다");
+		}
+	}
+	
+	
+	// 마이페이지 수정
+	public void update(String userid, UserSignupValid signupValid) {
+		// 기존 회원 정보 가져와서 set 다시 하기
+		Optional<UserEntity> optional = userRepository.findByUserid(userid);
+		if (optional.isPresent()) {
+			UserEntity userEntity = optional.get();
+			userEntity.setPassword(signupValid.getPassword1());
+			userEntity.setUsername(signupValid.getUsername());
+			userEntity.setPet(signupValid.getPet());
+			userEntity.setEmail(signupValid.getEmail());
+			userRepository.save(userEntity);
 		} else {
 			throw new DataNotFoundException("해당 유저를 찾을 수 없습니다");
 		}

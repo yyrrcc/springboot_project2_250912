@@ -14,5 +14,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>{
 
 	// userid로 회원탈퇴
 	public void deleteByUserid(String userid);
+	
+	
 
 }
