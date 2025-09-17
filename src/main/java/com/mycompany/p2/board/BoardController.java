@@ -82,6 +82,7 @@ public class BoardController {
 	}
 	
 	// 글 상세보기 (댓글 추가)
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/view/{id}")
 	public String view(@PathVariable("id") Long id, Model model, Principal principal) {
 		BoardEntity board = boardService.view(id);
