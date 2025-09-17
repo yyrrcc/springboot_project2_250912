@@ -69,13 +69,15 @@
 </section>
 
 <!-- 자바스크립트 Start -->
-<script layout:fragment="script" type='text/javascript'>
+<script layout:fragment="script" type='text/javascript' th:inline="javascript">
 // 회원탈퇴 
 document.querySelector('.delete-form').addEventListener('submit', function(e) {
         if (!confirm('정말 탈퇴 하시겠습니까?')) {
             e.preventDefault(); // 취소하면 폼 제출 중단
         }
     });
+    
+// 회원정보 수정 성공
 </script>
 <!-- 자바스크립트 End -->
 </html>

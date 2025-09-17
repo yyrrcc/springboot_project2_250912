@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -95,6 +96,7 @@ public class UserController {
 		}
 		try {
 			userService.update(principal.getName(), userSignupValid);
+			// 회원정보 수정 성공 자바스크립트 하고 싶음
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();
 			result.reject("updateError", "이미 사용중인 이메일입니다.");

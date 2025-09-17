@@ -37,5 +37,17 @@
         <p>아직 회원이 아니신가요? <a th:href="@{/user/signup}">회원가입</a></p>
     </div>
 </section>
+
+<!-- 자바스크립트 Start -->
+<script layout:fragment="script" type='text/javascript'>
+// 회원탈퇴 
+document.querySelector('.delete-form').addEventListener('submit', function(e) {
+        if (!confirm('정말 탈퇴 하시겠습니까?')) {
+            e.preventDefault(); // 취소하면 폼 제출 중단
+        }
+    });
+</script>
+<!-- 자바스크립트 End -->
+
 </body>
 </html>
