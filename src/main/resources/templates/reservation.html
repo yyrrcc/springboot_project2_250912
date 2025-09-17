@@ -18,6 +18,9 @@
     </div>
     
     <form id="reservationForm" th:action="@{/hospital/reserve}" method="post" class="hospital-form">
+    	<!-- 에러 표시 
+	    <div th:replace="~{form_errors :: formErrorsFragment}"></div> -->
+	    
         <div class="form-group">
             <label for="ownername">보호자 이름</label>
             <input type="text" id="ownername" name="ownername" placeholder="이름을 입력하세요" required>
@@ -30,16 +33,17 @@
 
         <div class="form-group">
             <label for="resdate">예약일</label>
-            <input type="date" id="date" name="resdate" required>
+            <input type="date" id="resdate" name="resdate" required>
         </div>
         
         <div class="form-group">
             <label for="restime">예약 시간</label>
-            <select id="time" name="restime" required>
+            <select id="restime" name="restime" required>
                 <option value="">선택하세요</option>
                 <option value="9">09:00</option>
-                <option value="10">10:00</option>
                 <option value="11">11:00</option>
+                <option value="14">14:00</option>
+                <option value="16">16:00</option>
             </select>
         </div>        
 
@@ -56,17 +60,21 @@
      
 </section>
 
-<script>
+<script layout:fragment="script" type='text/javascript'>
+// 예약 가능 날짜..
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('resdate').setAttribute('min', today);
+
 	// 현재 날짜 구하기..?
-	let now = new Date();
-	let today = now.toISOString().split('T');
-	document.getElementById('date').setAttribute('min', today);
+//	let now = new Date();
+//	let today = now.toISOString().split('T');
+//	document.getElementById('date').setAttribute('min', today);
 
 	// 예약..?
-    document.getElementById("reservationForm").addEventListener("submit", function(e){
-        if(!confirm("예약을 진행하시겠습니까?")) {
-            e.preventDefault();
-        }
-    });
+//    document.getElementById("reservationForm").addEventListener("submit", function(e){
+//        if(!confirm("예약을 진행하시겠습니까?")) {
+//            e.preventDefault();
+//        }
+//    });
 </script>
 </html>

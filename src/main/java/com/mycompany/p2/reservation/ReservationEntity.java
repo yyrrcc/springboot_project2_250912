@@ -1,9 +1,7 @@
 package com.mycompany.p2.reservation;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
-import com.mycompany.p2.comment.CommentEntity;
 import com.mycompany.p2.user.UserEntity;
 
 import jakarta.persistence.Column;
@@ -14,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,14 +32,12 @@ public class ReservationEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PETRESERVATION_SEQ_GENERATOR")
 	private Long id; // 기본키
-	
-	@NotBlank(message = "보호자 이름은 필수 항목입니다.")
+
 	private String ownername; // 보호자 이름
-	
-	@NotBlank(message = "반려동물 이름은 필수 항목입니다.")
+
 	private String petname; // 반려동물 이름
 	
-	private LocalDateTime resdate; // 예약날짜
+	private LocalDate resdate; // 예약날짜
 	
 	private String restime; // 예약시간
 	

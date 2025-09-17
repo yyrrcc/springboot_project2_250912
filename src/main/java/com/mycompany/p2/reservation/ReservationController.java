@@ -27,16 +27,17 @@ public class ReservationController {
 	
 	// 병원예약하기
 	@PostMapping(value = "/reserve")
-	public String reserve(@Valid ReservationEntity reservationEntity, BindingResult result, Model model) {
+	public String reserve(@Valid ReservationValid reservationValid, BindingResult result, Model model) {
+		System.out.println("에러결과 : " + result);
 		if (result.hasErrors()) {
 			return "reservation";
 		}
-		reservationService.hospitalReserve(reservationEntity.getOwnername(), reservationEntity.getPetname(), 
-				reservationEntity.getResdate(), reservationEntity.getRestime(), reservationEntity.getSymptom());
-		return "redirect:/";
+		reservationService.hospitalReserve(reservationValid.getOwnername(), reservationValid.getPetname(), 
+				reservationValid.getResdate(), reservationValid.getRestime(), reservationValid.getSymptom());
+		return "redirect:/hospital/list";
 	}
 	
-	// 병원예약 폼
+	// 예약확인 목록
 	@GetMapping(value = "/list")
 	public String list(Model model) {
 		List<ReservationEntity> reservations = reservationService.getReserves();

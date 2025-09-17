@@ -1,6 +1,6 @@
 package com.mycompany.p2.reservation;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class ReservationService {
 	private ReservationRepository reservationRepository;
 	
 	// 병원 예약하기
-	public void hospitalReserve(String ownername, String petname, LocalDateTime resdate, String restime, String symptom) {
+	public void hospitalReserve(String ownername, String petname, LocalDate resdate, String restime, String symptom) {
 		ReservationEntity reservation = new ReservationEntity();
 		reservation.setOwnername(ownername);
 		reservation.setPetname(petname);
