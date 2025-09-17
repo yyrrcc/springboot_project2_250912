@@ -110,5 +110,12 @@ public class BoardService {
 	}
 	
 	
+	// 게시글 좋아요(추천)
+	public void like(BoardEntity boardEntity, UserEntity userEntity) {
+		boardEntity.getLiker().add(userEntity);
+		boardRepository.save(boardEntity);
+		
+	}
+	
 
 }

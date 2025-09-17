@@ -2,6 +2,7 @@ package com.mycompany.p2.board;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import com.mycompany.p2.comment.CommentEntity;
 import com.mycompany.p2.user.UserEntity;
@@ -12,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
@@ -56,5 +58,9 @@ public class BoardEntity {
 	// 게시판:댓글(1:N) 관계
 	@OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
 	private List<CommentEntity> commentList;
+	
+	// 게시판:좋아요유저(N:N) 관계
+	@ManyToMany
+	private Set<UserEntity> liker;
 	
 }

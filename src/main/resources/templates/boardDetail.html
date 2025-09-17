@@ -22,7 +22,16 @@
         <div class="content" th:text="${board.content}">
             게시글 내용
         </div>
+        
+        <!-- 좋아요 버튼 -->
+	    <div class="post-actions">
+	    <a href="javascript:void(0);" class="like-form" 
+		   th:data-uri="@{|/board/like/${id}|}">🤍 좋아요
+		   <span class="like-count" th:text="${#lists.size(board.liker)}"></span></a>
+	    </div>
     </div>
+    
+
 
     <!-- 버튼 영역 -->
     <div class="board-actions">
@@ -82,11 +91,20 @@
     </div>
 </section>
 <script layout:fragment="script" type='text/javascript'>
-// 삭제
+// 게시글 삭제
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
     element.addEventListener('click', function() {
         if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+// 게시글 추천
+const like_elements = document.getElementsByClassName("like-form");
+Array.from(like_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 추천하시겠습니까?")) {
             location.href = this.dataset.uri;
         };
     });

@@ -38,6 +38,39 @@ h2 {
     margin-top: 10px;
 }
 
+/* === 좋아요 버튼 === */
+.post-actions {
+    margin: 40px 0 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.like-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #fff;
+    background: rgb(255,161,92);
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.like-form:hover {
+    background: #a98e72;
+}
+
+.like-count {
+    font-weight: bold;
+    color: #fff;
+}
+
+
+
 /* 버튼 영역 (board.css와 통일) */
 .board-actions {
     display: flex;

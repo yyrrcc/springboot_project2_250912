@@ -128,5 +128,15 @@ public class BoardController {
 		boardService.delete(id);
 		return "redirect:/board/list";
 	}
+	
+	// 게시글 추천
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = "/like/{id}")
+	public String like(@PathVariable("id") Long id, Principal principal) {
+		BoardEntity boardEntity = boardService.view(id);
+		UserEntity userEntity = userService.findByUserid(principal.getName());
+		boardService.like(boardEntity, userEntity);
+		return String.format("redirect:/board/view/%s", id);
+	}
 
 }
