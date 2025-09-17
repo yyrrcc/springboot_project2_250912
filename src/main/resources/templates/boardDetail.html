@@ -16,8 +16,10 @@
         <p class="meta">
             <span>작성자: <span th:text="${board.writer.username}">작성자</span></span> | 
             <span>조회수: <span th:text="${board.hit}">0</span></span> | 
-            <span th:if="${board.editdate != null}" th:text="'수정일: ' + ${#temporals.format(board.editdate, 'yyyy-MM-dd HH:mm')}" style="font-style: italic;"><span>수정일</span></span>
-            <span th:if="${board.editdate == null}" th:text="'작성일: ' + ${#temporals.format(board.regdate, 'yyyy-MM-dd HH:mm')}"><span>작성일</span></span>
+            <span th:if="${board.editdate != null}" th:text="'수정일: ' + ${#temporals.format(board.editdate.atZone(T(java.time.ZoneId).of('UTC'))
+                                                .withZoneSameInstant(T(java.time.ZoneId).of('Asia/Seoul')), 'yyyy-MM-dd HH:mm')}" style="font-style: italic;"><span>수정일</span></span>
+            <span th:if="${board.editdate == null}" th:text="'작성일: ' + ${#temporals.format(board.regdate.atZone(T(java.time.ZoneId).of('UTC'))
+                                                .withZoneSameInstant(T(java.time.ZoneId).of('Asia/Seoul')), 'yyyy-MM-dd HH:mm')}"><span>작성일</span></span>
         </p>
         <div class="content" th:text="${board.content}">
             게시글 내용
@@ -103,7 +105,8 @@ Array.from(delete_elements).forEach(function(element) {
 // 게시글 추천
 const like_elements = document.getElementsByClassName("like-form");
 Array.from(like_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
+    element.addEventListener('click', function(event) {
+    	event.preventDefault(); // 기본 이동 막기 (조회수 2씩 올라가는 거 방지)
         if(confirm("정말로 추천하시겠습니까?")) {
             location.href = this.dataset.uri;
         };

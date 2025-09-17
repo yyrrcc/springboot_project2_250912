@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,6 +82,7 @@ public class BoardController {
 	}
 	
 	// 글 상세보기 (댓글 추가)
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/view/{id}")
 	public String view(@PathVariable("id") Long id, Model model, Principal principal) {
 		BoardEntity board = boardService.view(id);
