@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.5'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'war'
 }
 
 group = 'com.mycompany'
@@ -12,6 +13,13 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
+}
+
+// war 배포파일명
+bootWar {
+	archiveBaseName = 'sbbproject2'
+	archiveFileName = 'sbbproject2.war'
+	archiveVersion = "0.0.0"	
 }
 
 configurations {
