@@ -27,13 +27,17 @@
     <!-- 버튼 영역 -->
     <div class="board-actions">
         <a th:href="@{/board/list}" class="btn-secondary">목록</a>
-        <a th:href="@{|/board/edit/${id}|}" class="btn-primary">수정</a>
+        <a th:href="@{|/board/edit/${id}|}" class="btn-primary"
+        th:if="${(board.writer != null and #authentication.principal.username == board.writer.userid)
+        or #authentication.principal.username == 'admin'}" th:text="수정">수정</a>
         <form th:action="@{|/board/delete/${id}|}" method="post" style="display:inline;">
-            <button type="submit" class="delete btn-danger">삭제</button>
+            <button type="submit" class="delete btn-danger"
+            th:if="${(board.writer != null and #authentication.principal.username == board.writer.userid)
+            or #authentication.principal.username == 'admin'}" th:text="삭제"
+            >삭제</button>
         </form>
     </div>
-
-
+    
 
 
     <!-- 댓글 영역 -->

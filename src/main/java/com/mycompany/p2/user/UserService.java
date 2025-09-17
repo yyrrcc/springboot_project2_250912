@@ -49,7 +49,8 @@ public class UserService {
 		Optional<UserEntity> optional = userRepository.findByUserid(userid);
 		if (optional.isPresent()) {
 			UserEntity userEntity = optional.get();
-			userEntity.setPassword(signupValid.getPassword1());
+			String crtptPassword = passwordEncoder.encode(signupValid.getPassword1());
+			userEntity.setPassword(crtptPassword);
 			userEntity.setUsername(signupValid.getUsername());
 			userEntity.setPet(signupValid.getPet());
 			userEntity.setEmail(signupValid.getEmail());

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -113,6 +112,7 @@ public class UserController {
 	
 	
 	// 회원탈퇴
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/mypage/delete")
 	public String delete(Principal principal, HttpServletRequest request, HttpServletResponse response) {
 		userService.deleteByUserid(principal.getName());
