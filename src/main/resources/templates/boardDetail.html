@@ -105,8 +105,8 @@ Array.from(delete_elements).forEach(function(element) {
 // 게시글 추천
 const like_elements = document.getElementsByClassName("like-form");
 Array.from(like_elements).forEach(function(element) {
-    element.addEventListener('click', function(event) {
-    	event.preventDefault(); // 기본 이동 막기 (조회수 2씩 올라가는 거 방지)
+	element.addEventListener('click', function(event) {
+    	event.preventDefault(); // 기본 이동 막기 (조회수 2씩 올라가는 거 방지 실패)
         if(confirm("정말로 추천하시겠습니까?")) {
             location.href = this.dataset.uri;
         };

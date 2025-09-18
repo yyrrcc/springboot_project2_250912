@@ -41,8 +41,8 @@
                 </td>
                 <td th:text="${b.writer.username}">작성자</td>
                 <td th:text="${b.hit}">0</td>
-                <!-- <td th:text="${#temporals.format(b.regdate, 'yyyy-MM-dd HH:mm')}">작성일</td> -->
-                <td th:text="${#temporals.format(b.regdate.atZone(T(java.time.ZoneId).of('UTC'))
+				<!-- <td th:text="${#temporals.format(b.regdate, 'yyyy-MM-dd HH:mm')}">작성일</td> -->
+<td th:text="${#temporals.format(b.regdate.atZone(T(java.time.ZoneId).of('UTC'))
                                                 .withZoneSameInstant(T(java.time.ZoneId).of('Asia/Seoul')),
                                                 'yyyy-MM-dd HH:mm')}">작성일</td>
             </tr>
@@ -88,21 +88,7 @@
 	        </ul>
 	    </div>
 	    <!-- 페이징처리 끝 -->
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
     </div>
 </body>
 </html>

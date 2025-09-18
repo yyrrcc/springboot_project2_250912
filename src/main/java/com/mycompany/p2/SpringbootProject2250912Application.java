@@ -17,6 +17,5 @@ public class SpringbootProject2250912Application extends SpringBootServletInitia
 		return builder.sources(SpringbootProject2250912Application.class);
 		
 	}
-	
 
 }
