@@ -110,7 +110,8 @@ public class BoardController {
 	// 글 수정한 후
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/edit/{id}")
-	public String edit(@PathVariable("id") Long id, @Valid BoardDto boardDto, BindingResult result, Principal principal, Model model) {
+	public String edit(@PathVariable("id") Long id, @Valid BoardDto boardDto,
+			BindingResult result, Principal principal, Model model) {
 		if (result.hasErrors()) {
 			//model.addAttribute("board", boardService.view(id));
 			model.addAttribute("board", boardDto);

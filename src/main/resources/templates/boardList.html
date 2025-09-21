@@ -33,7 +33,8 @@
             <tr th:each="b, loop : ${paging}">
                 <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}">번호</td>
                 <td>
-                    <a th:href="@{|/board/view/${b.id}|}" th:text="${b.title}">제목</a>
+                    <a th:href="@{|/board/view/${b.id}|}" th:text="${b.title}"
+                    class="title_auth" th:data-authenticated="${#authorization.expression('isAuthenticated()')}">제목</a>
 					<span class="comment-number"
                         th:if="${#lists.size(b.commentList) > 0}" 
                         th:text="'(' + ${#lists.size(b.commentList)} + ')'">
@@ -90,5 +91,26 @@
 	    <!-- 페이징처리 끝 -->
 
     </div>
+    
+<!-- 자바스크립트 Start -->
+<script layout:fragment="script" type='text/javascript'>
+// 1. 로그인한 회원만 글 볼 수 있게
+// DOMContentLoaded: HTML이 완전히 로드된 후 스크립트가 실행되도록 보장
+document.addEventListener('DOMContentLoaded', function() {
+    const titleLinks = document.querySelectorAll('.title_auth');
+    titleLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+        	// 각 링크의 data-authenticated 속성에서 인증 상태 확인
+            const isAuthenticated = this.getAttribute('data-authenticated') === 'true';
+            
+            if (!isAuthenticated) {
+                alert('로그인 한 회원만 글을 볼 수 있습니다.');
+            }
+        });
+    });
+});
+</script>
+<!-- 자바스크립트 End -->
+
 </body>
 </html>
